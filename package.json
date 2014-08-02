@@ -4,6 +4,7 @@
   "description": "Quiz 2014 app",
   "dependencies": {
     "express": "^4.7.2",
-    "socket.io": "^1.0.6"
+    "socket.io": "^1.0.6",
+    "delivery": "^0.0.1"
   }
 }
