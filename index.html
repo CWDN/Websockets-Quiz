@@ -19,22 +19,40 @@
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
       <button class="packet">Packet</button>
+
+      <img src=""/>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-    var socket = io();
-    $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-    });
-    $('.packet').click(function(){
-       socket.emit('next question', "");
-    });
-    socket.on('chat message', function(msg){
-        var pt = JSON.parse(msg);
-        $('#messages').append($('<li>').html(pt.body));
-    });
+        var socket = io();
+        $('form').submit(function(){
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        $('.packet').click(function(){
+           socket.emit('next question', "");
+        });
+        socket.on('chat message', function(msg){
+            var pt = JSON.parse(msg);
+            $('#messages').append($('<li>').html(pt.body));
+        });
+
+        socket.on('connect', function(){
+            var delivery = new Delivery(socket);
+
+            delivery.on('receive.start', function(fileUID){
+                console.log('receiving a file');
+            });
+
+            delivery.on('receive.success', function(file){
+                if(file.isImage()){
+                    $('img').attr('src', file.dataURL());
+                }
+            })
+
+        });
+
     </script>
   </body>
 </html>
