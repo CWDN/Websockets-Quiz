@@ -4,7 +4,9 @@
   "description": "Quiz 2014 app",
   "dependencies": {
     "express": "^4.7.2",
-    "socket.io": "^1.0.6",
-    "delivery": "^0.0.1"
+    "socket.io": "^1.1.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8"
   }
 }
