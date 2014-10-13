@@ -7,6 +7,17 @@ app.get('/', function(req, res){
    res.sendFile(__dirname + '/chat.html');
 });
 
+app.get('/test', function(req, res){
+   res.sendFile(__dirname + '/client/test.html');
+});
+
+app.get('/client/client.js', function(req, res){
+    res.sendFile(__dirname + '/client/client.js');
+});
+app.get('/images/*', function(req, res){
+    res.sendFile(__dirname + req.url);
+});
+
 var users = new Array();
 
 io.on('connection', function(socket){
@@ -34,11 +45,16 @@ io.on('connection', function(socket){
         io.emit('online users', JSON.stringify(users));
     });
     
-    fs.readFile('./images/bpb.png', function(err, buf){
+    fs.readFile('./images/lil-llama.jpg', function(err, buf){
         socket.emit('image', { buffer: buf });
       });
 })
 
-http.listen(3000, function(){
-   console.log('listening in *:3000'); 
-});
+ var server = app.listen(8000, function()
+{
+     var host = server.address().address;
+     var port = server.address().port;
+
+     console.log('Listening at http://%s:%s', host, port);
+
+ });

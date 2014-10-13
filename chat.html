@@ -20,7 +20,6 @@
     
     <ul id="users"></ul>
     <ul id="messages"></ul>
-    <canvas id="mycanvas"></canvas>
     <input id="status" readonly></input>
     <form action="" id="message_form">
       <input id="m" autocomplete="off" /><button>Send</button>
@@ -28,73 +27,9 @@
     <form action="" id="nick_form">
       <input id="nick" autocomplete="off" placeholder="Nickname"/><button>Connect</button>
     </form>
+    <img src="images/bpb.png">
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-        var socket = io();
-        $('#nick_form').submit(function(){
-            socket.emit('nickname', $('#nick').val());
-           
-            
-            return false;
-            
-        });
-        $('#message_form').submit(function(){
-            var message = $('#nick').val() + ': ' + $('#m').val();
-            socket.emit('chat message', message);
-            $('#messages').append($('<li>').text(message));
-            $('#m').val('');
-            return false;
-        });
-        socket.on('chat message', function(msg){
-            $('#messages').append($('<li>').text(msg));
-        });
-        var clStatus;
-        socket.on('user typing', function(msg){
-            clearTimeout(clStatus);
-            if($('#status').val() == ''){
-                $('#status').val(msg);
-            }
-            clStatus = setTimeout(function(){
-                $('#status').val('');
-            }, 500);
-        });
-
-        $('#m').on('keydown', function(){
-           socket.emit('typing', $('#nick').val()); 
-        });
-
-        socket.on('online users', function(json_users){
-            var users = JSON.parse(json_users);
-            console.log(users);
-            var html = "";
-            $(users).each(function(index, element){
-                html += '<li>' + element + '</li>';
-            });
-            console.log(html);
-            $('#users').html(html);
-        });
-        
-        socket.on('image', function(data){
-            var canvas = document.getElementById('mycanvas');
-            var ctx = canvas.getContext('2d');
-
-            var uint8Arr = new Uint8Array(data.buffer);
-            var str = String.fromCharCode.apply(null, uint8Arr);
-            var base64String = btoa(str);
-
-            var img = new Image();
-            img.onload = function() {
-                var x = 0;
-                var y = 0;
-                ctx.drawImage(this, x, y);
-            }
-            img.src = 'data:image/png;base64,' + base64String;
-        });
-        
-        
-        
-                
-      </script>
+    <script src="client/client.js" type="application/javascript"></script>
   </body>
 </html>
