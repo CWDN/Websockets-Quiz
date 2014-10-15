@@ -4,9 +4,13 @@
   "description": "Quiz 2014 app",
   "dependencies": {
     "express": "^4.7.2",
-    "socket.io": "^1.1.0"
+    "socket.io": "^1.1.0",
+    "jade": "*",
+    "stylus": "*",
+    "nib": "*"
   },
   "devDependencies": {
-    "gulp": "^3.8.8"
+    "gulp": "^3.8.8",
+    "morgan": "^1.3.2"
   }
 }
