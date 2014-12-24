@@ -1,7 +1,5 @@
-var PresenterLobby = function PresenterLobby(socketIO) {
+var PresenterLobby = function PresenterLobby() {
   'use strict';
-
-  this.SocketIO = socketIO;
 };
 
 PresenterLobby.prototype.Route = function Route(req, res) {
@@ -18,6 +16,6 @@ PresenterLobby.prototype.Route = function Route(req, res) {
   });
 };
 
-exports.PresenterLobby = function Constructor(socketIO) {
-  return new PresenterLobby(socketIO);
+exports.PresenterLobby = function Constructor() {
+  return new PresenterLobby();
 };
