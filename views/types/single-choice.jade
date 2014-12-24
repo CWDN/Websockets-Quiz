@@ -1,0 +1,25 @@
+extend ../client-question
+block answers
+	h2 Choose one
+	.btn-group.col-xs-12(data-toggle='buttons')
+		.col-xs-12.col-md-6
+			label.answer.active.btn(data-toggle="tooltip" data-placement="top" title="Star Spangled Banner")
+				input(type='radio' id='answer1' name='answer' checked value='Star Spangled Banner' autocomplete="off")
+				span.number 1
+				span.text Star Spangled Banner
+
+		.col-xs-12.col-md-6
+			label.answer.btn(data-toggle="tooltip" data-placement="top" title="This little light of mine")
+				input(type='radio' id='answer2' name='answer' value='Star  Banner' autocomplete="off")
+				span.number 2
+				span.text This little light of mine
+		.col-xs-12.col-md-6
+			label.answer.btn(data-toggle="tooltip" data-placement="top" title="Star Spangled Banner")
+				input(type='radio' id='answer3' name='answer' value='Star Spangled ' autocomplete="off")
+				span.number 3
+				span.text Star Spangled Banner
+		.col-xs-12.col-md-6
+			label.answer.btn(data-toggle="tooltip" data-placement="top" title="Star Spangled Banner that has an extremely long answer that shouuld really be shortened")
+				input(type='radio' id='answer4' name='answer' value=' Spangled Banner' autocomplete="off")
+				span.number 4
+				span.text Star Spangled Banner that has an extremely long answer that shouuld really be shortened

@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title #{title} - Quiz 2014
+    link(rel='stylesheet', href='/css/styles.css')
+    meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+  body
+    header
+      block header
+
+    .container
+      block content
+
+    script(src='/socket.io/socket.io.js')
+    script(type='application/javascript' src='/js/quiz-2014.js')

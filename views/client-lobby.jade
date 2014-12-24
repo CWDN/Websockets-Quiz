@@ -1,0 +1,14 @@
+extend layouts/lobby
+
+block content
+  .row.teamName
+    .col-xs-12
+      form
+        .input-group
+          input.form-control(placeholder='Team name')
+          span.input-group-btn
+            input.btn.btn-primary(type='submit' value='Set')
+
+  .row
+    .teams
+

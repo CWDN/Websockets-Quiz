@@ -1,25 +1,25 @@
 {
-  "name": "quiz-2014",
-  "version": "0.0.0",
-  "homepage": "https://github.com/Piefarmer/quiz-2014",
-  "authors": [
-    "Piefarmer <chris.normansell@gmail.com>"
-  ],
-  "description": "Websocket Quiz Game",
-  "moduleType": [
-    "node"
-  ],
-  "license": "MIT",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "bootstrap": "~3.2.0",
-    "jquery": "~2.1.1"
-  }
+	"name": "quiz-2014",
+	"version": "0.0.0",
+	"authors": [
+	"Piefarmer <chris.normansell@gmail.com>"
+	],
+	"main": "app.js",
+	"moduleType": [
+	"node"
+	],
+	"license": "MIT",
+	"private": true,
+	"ignore": [
+	"**/.*",
+	"node_modules",
+	"bower_components",
+	"test",
+	"tests"
+	],
+	"dependencies": {
+	"jquery": "~2.1.3",
+	"bootstrap": "~3.3.1",
+	"font-awesome": "~4.2.0"
+	}
 }

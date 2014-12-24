@@ -18,4 +18,7 @@ build
 
 node_modules
 public/components
-designs
+public/js
+public/css
+public/fonts
+assets/components
