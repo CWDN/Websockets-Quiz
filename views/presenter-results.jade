@@ -11,85 +11,42 @@ html
         .category
           h2 Results
 
-    .col-xs-12.col-sm-6.col-md-4
+    .col-xs-12
       .result
         .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
+          .results-question.col-xs-12 Question #1
+            .pull-right this is an example question?
+          .results-answer.col-xs-12 Answer
+            .pull-right this is an example answer
+          .team-answer.col-xs-12
+            .correct Team 1:
+            .pull-left
+              i.fa.fa-check.fa-lg.correct
+            .pull-left This is team ones answer
+          .team-answer.col-xs-12
+            .incorrect Team 2:
+            .pull-left
+              i.fa.fa-times.fa-lg.incorrect
+            .pull-left This is team twos answer
 
-    .col-xs-12.col-sm-6.col-md-4
+    .col-xs-12
       .result
         .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer this is an example answer this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
+          .results-question.col-xs-12 Question #1
+            .pull-right this is an example question?
+          .results-answer.col-xs-12 Answer
+            .pull-right this is an example answer
+          .team-answer.col-xs-12
+            .correct Team 1:
+            .pull-left
+              i.fa.fa-check.fa-lg.correct
+            .pull-left This is team ones answer
+          .team-answer.col-xs-12
+            .incorrect Team 2:
+            .pull-left
+              i.fa.fa-times.fa-lg.incorrect
+            .pull-left This is team twos answer
 
-    .col-xs-12.col-sm-6.col-md-4
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer this is an example answer this is an example answer this is an example answer this is an example answer this is an example answer this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
-
-    .col-xs-12.col-sm-6.col-md-4
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
-
-    .col-xs-12.col-sm-6.col-md-4
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
-
-    .col-xs-12.col-sm-6.col-md-4
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
-
-    .col-xs-12.col-sm-6.col-md-4
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
-
-    .col-xs-12.col-sm-6.col-md-4
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 #1 this is an example question?
-          .results-answer.col-xs-12 this is an example answer
-          .col-xs-12 Team 1: This is team ones answer
-            i.fa.fa-check.fa-lg.correct
-          .col-xs-12 Team 2: This is team twos answer
-            i.fa.fa-times.fa-lg.incorrect
 
     script(src='/socket.io/socket.io.js')
     script(type='application/javascript' src='/js/quiz-2014.js')

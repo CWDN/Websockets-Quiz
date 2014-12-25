@@ -3,25 +3,45 @@
   margin: 10px;
 }
 
+.thumbnail {
+  padding: 10px 5px;
+}
+
 .results-question {
-  text-align: center;
-  font-size: 1.3em;
+  font-size: 1.4em;
+  color: #777;
 }
 
 .results-answer {
-  text-align: center;
-  font-size: 1.2em;
-  border-bottom: 1px solid #eee;
+  font-size: 1.6em;
+  color: #555;
+  border-bottom: 1px solid #ddd;
   margin: 5px 0px;
   padding-bottom: 5px;
 }
 
+.team-answer {
+  font-size: 1.2em;
+}
+
 i.correct {
-  color: green;
+  color: @correct;
+  margin-right: 7px;
+  width: 23px;
+}
+
+.correct {
+  color: @correct;
 }
 
 i.incorrect {
-  color: red;
+  color: @incorrect;
+  margin-right: 7px;
+  width: 23px;
+}
+
+.incorrect {
+  color: @incorrect;
 }
 
 .back-color-white {
