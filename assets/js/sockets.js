@@ -35,6 +35,22 @@ $(function () {
     document.title = title;
   });
 
+  socket.on('countdown', function(time) {
+    $('.countdown h2').html(time);
+  });
+
+  socket.on('request answer', sendAnswer);
+
+  $('body').on('click', '#confirm-answer', function () {
+    sendAnswer();
+  });
+
+  function sendAnswer() {
+    $('.answer').attr('disabled', 'disabled');
+    $('#confirm-answer').attr('disabled', 'disabled');
+    var answer = $('.answers input:checked').val();
+    socket.emit('send answer', answer);
+  }
   //endregion
 
 });
