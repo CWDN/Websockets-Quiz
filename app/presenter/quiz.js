@@ -1,8 +1,7 @@
-var PresenterQuiz = function PresenterQuiz(quiz, socketIO) {
+var PresenterQuiz = function PresenterQuiz(quiz) {
   'use strict';
 
   this.quiz = quiz;
-  this.SocketIO = socketIO;
 };
 
 
@@ -20,6 +19,6 @@ PresenterQuiz.prototype.Route = function Route(req, res) {
   });
 };
 
-exports.PresenterQuiz = function Constructor(quiz, socketIO) {
-  return new PresenterQuiz(quiz, socketIO);
+exports.PresenterQuiz = function Constructor(quiz) {
+  return new PresenterQuiz(quiz);
 };

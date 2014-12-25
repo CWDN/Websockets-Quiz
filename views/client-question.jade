@@ -1,27 +1,25 @@
-extend layouts/quiz
+header
+  .row
+    .team.col-xs-12.col-sm-6
+      h3 #{team}
+    .questionNum.col-xs-12.col-sm-6
+      h3
+        span #
+        span.current-question #{currentQuestion}
+        span /
+        span.total-quetions #{totalQuestions}
+  .row
+    .category
+      h2 #{category}
 
-block header
-	.row
-		.team.col-xs-12.col-sm-6
-			h3 #{team}
-		.questionNum.col-xs-12.col-sm-6
-			h3
-				span #
-				span.current-question #{currentQuestion}
-				span /
-				span.total-quetions #{totalQuestions}
-	.row
-		.category
-			h2 #{category}
+.container.content
+  .question
+    h2 #{question}
 
-block content
-	.question
-		h2 #{question}
+  .countdown
+    h2.text-center #{countdown}s
+  .answers.row
+    block answers
 
-	.countdown
-		h2.text-center #{countdown}s
-	.answers.row
-		block answers
-
-		.col-xs-12.col-sm-6.col-sm-offset-3
-			button.submit.btn.btn-confirm Confirm
+    .col-xs-12.col-sm-6.col-sm-offset-3
+      button.submit.btn.btn-confirm Confirm

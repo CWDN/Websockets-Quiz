@@ -1,19 +1,16 @@
-extend layouts/quiz
+header.header-purple
+  .row
+    .questionNum
+      h3
+        span #
+        span.current-question #{currentQuestion}
+        span /
+        span.total-quetions #{totalQuestions}
+  .row
+    .category
+      h2 #{category}
 
-block header
-  header.header-purple
-    .row
-      .questionNum
-        h3
-          span #
-          span.current-question #{currentQuestion}
-          span /
-          span.total-quetions #{totalQuestions}
-    .row
-      .category
-        h2 #{category}
-
-block content
+.container.content
   .question
     h2 #{question}
 

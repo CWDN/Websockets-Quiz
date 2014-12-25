@@ -1,8 +1,7 @@
-var ClientQuiz = function ClientQuiz(quiz, socketIO) {
+var ClientQuiz = function ClientQuiz(quiz) {
   'use strict';
 
   this.Quiz = quiz;
-  this.SocketIO = socketIO;
 };
 
 ClientQuiz.prototype.Route = function Route(req, res) {
@@ -19,6 +18,6 @@ ClientQuiz.prototype.Route = function Route(req, res) {
   });
 };
 
-exports.ClientQuiz = function Constructor(quiz, socketIO) {
-  return new ClientQuiz(quiz, socketIO);
+exports.ClientQuiz = function Constructor(quiz) {
+  return new ClientQuiz(quiz);
 };
