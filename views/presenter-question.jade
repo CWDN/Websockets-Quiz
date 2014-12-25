@@ -1,0 +1,32 @@
+extend layouts/quiz
+
+block header
+  header.header-purple
+    .row
+      .questionNum
+        h3
+          span #
+          span.current-question #{currentQuestion}
+          span /
+          span.total-quetions #{totalQuestions}
+    .row
+      .category
+        h2 #{category}
+
+block content
+  .question
+    h2 #{question}
+
+  .progress
+    .progress-bar(style='width: 60%')
+      span.progress-bar-text #{countdown}s
+
+  .team-state
+    .name Team 1
+    .status
+      i.fa.fa-check
+
+  .team-state
+    .name Team 2
+    .status
+    i.fa.fa-spinner.fa-spin
