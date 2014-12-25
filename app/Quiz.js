@@ -2,6 +2,8 @@ var Quiz = function (io) {
   'use strict';
   this.SocketIO = io;
   this.Teams = {};
+  this.CurrentQuestion = 1;
+  this.TotalQuestions = 60;
 };
 
 Quiz.prototype.Socket = function Socket() {
@@ -13,9 +15,23 @@ Quiz.prototype.Socket = function Socket() {
     lobby.Socket(socket);
 
     socket.on('start quiz', function StartQuiz() {
-      console.log(quiz.Teams);
-    });
+      //console.log(quiz.Teams);
+      for (var teamID in quiz.Teams) {
 
+        var team = quiz.Teams[teamID];
+
+        var nextQuestion = quiz.RenderJade('types/single-choice.jade', {
+          team: team.Name,
+          currentQuestion: quiz.CurrentQuestion,
+          totalQuestions: quiz.TotalQuestions,
+          countdown: '60',
+          category: 'Music',
+          question: 'What is the name of the offical national anthem of the USA?'
+        });
+
+        team.Socket.emit('body change', nextQuestion);
+      }
+    });
   });
 };
 
