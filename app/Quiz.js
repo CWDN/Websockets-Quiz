@@ -178,6 +178,8 @@ Quiz.prototype.CheckAllHaveAnswered = function CheckAllHaveAnswered() {
 Quiz.prototype.Countdown = function Countdown() {
   var quiz = this;
   console.log('countdown');
+  quiz.SocketIO.emit('countdown', quiz.CurrentCountdown + 's');
+  quiz.SocketIO.to('presenters').emit('presenter countdown progress', (100 / (quiz.TotalCountdown / quiz.CurrentCountdown)) + '%');
   this.CountdownID = setTimeout(count, 1000);
 
   function count() {
