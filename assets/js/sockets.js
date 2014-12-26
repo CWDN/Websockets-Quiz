@@ -53,7 +53,7 @@ $(function () {
     socket.emit('send answer', answer);
   }
   $('body').on('click', '.progress', function () {
-    if ($('.countdown-text i').length == 0) {
+    if ($('.countdown-text i').length === 0) {
       socket.emit('pause quiz');
     } else {
       socket.emit('resume quiz');
