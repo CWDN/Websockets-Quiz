@@ -15,14 +15,13 @@ header.header-presenter
     h2 #{question}
 
   .progress
-    .progress-bar(style='width: 60%')
-      span.progress-bar-text #{countdown}s
+    .progress-bar(style='width: 0%')
+      span.progress-bar-text.countdown-text
+        | #{countdown}s
+      i.fa.fa-spin
 
   .team-states
-    .team.col-xs-6.col-sm-2.centered
-      .team-name Team 1
-      i.fa.fa-check.fa-lg
-
-    .team.col-xs-6.col-sm-2.centered
-      .team-name Team 2
-      i.fa.fa-spinner.fa-spin.fa-lg
+    each team, index in teams
+      .team.col-xs-6.col-sm-2.centered(id='#{team.ID}')
+        .team-name #{team.Name}
+        i.fa.fa-spinner.fa-spin.fa-lg

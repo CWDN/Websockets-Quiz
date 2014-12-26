@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "host": "localhost",
+    "user": "root",
+    "password" : "",
+    "database": "quiz2014",
+    "driver": "mysql",
+    "multipleStatements": true
+  }
+}

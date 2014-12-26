@@ -29,10 +29,48 @@ $(function () {
 
   socket.on('body change', function (html) {
     $('body').html(html);
+    $('[data-toggle="tooltip"]').tooltip();
   });
 
   socket.on('title change', function(title) {
     document.title = title;
+  });
+
+  socket.on('countdown', function(time) {
+    $('.countdown-text').html(time);
+  });
+
+  socket.on('request answer', sendAnswer);
+
+  $('body').on('click', '#confirm-answer', function () {
+    sendAnswer();
+  });
+
+  function sendAnswer() {
+    $('.answer').attr('disabled', 'disabled');
+    $('#confirm-answer').attr('disabled', 'disabled');
+    var answer = $('.answers input:checked').val();
+    socket.emit('send answer', answer);
+  }
+  $('body').on('click', '.progress', function () {
+    if ($('.countdown-text i').length == 0) {
+      socket.emit('pause quiz');
+    } else {
+      socket.emit('resume quiz');
+    }
+  });
+
+  socket.on('pause quiz', function () {
+    $('.countdown-text').html('<i class="fa fa-pause"></i>');
+  });
+
+  socket.on('presenter team submit', function (id) {
+    $('#' + id + ' i').removeClass('fa-spin fa-spinner');
+    $('#' + id + ' i').addClass('fa-check');
+  });
+
+  socket.on('presenter countdown progress', function (width) {
+    $('.progress-bar').width(width);
   });
 
   //endregion
