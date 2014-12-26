@@ -2,11 +2,15 @@ extend layouts/lobby
 
 
 block content
-  .row
-    .col-xs-12
-      button.btn.btn-lg.btn-primary.col-sm-2.col-sm-offset-5#lobby-start Start
-
-  .row
-    .col-xs-12
-      .teams
+  header.header-presenter
+    .row
+      .col-xs-12
+        h3.text-center Lobby
+  .container.lobby
+    .row
+      .col-xs-12
+        button.btn.btn-lg.btn-primary.col-sm-2.col-sm-offset-5#lobby-start Start
+    .row
+      .col-xs-12
+        .teams
 

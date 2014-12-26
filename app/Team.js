@@ -2,7 +2,7 @@ var Team = function (name, socket) {
   'use strict';
   this.Name = name;
   this.Socket = socket;
-  this.Answers = new Array();
+  this.Answers = {};
 };
 
 Team.prototype.AddAnswer = function AddAnswer(number, answer) {

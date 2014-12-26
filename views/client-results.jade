@@ -1,0 +1,26 @@
+header.header-presenter
+  .row
+    .category
+      h2 Results
+
+each question, index in questions
+  .col-xs-12
+    .result
+      .thumbnail.col-xs-12
+        .results-question.col-xs-12 Question ##{index+1}
+          .pull-right #{question.question}
+        .results-answer.col-xs-12 Answer
+          .pull-right #{question.correctAnswer}
+
+        .team-answer.col-xs-12
+          if (question.team.Answer == question.correctAnswer)
+            .correct You answered:
+            .pull-left
+              i.fa.fa-check.fa-lg.correct
+            .pull-left #{question.team.Answer}
+          else
+            .incorrect You answered:
+            .pull-left
+              i.fa.fa-times.fa-lg.incorrect
+            .pull-left #{question.team.Answer}
+

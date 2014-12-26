@@ -4,6 +4,7 @@ var Quiz = function (io) {
   this.Teams = {};
   this.CurrentQuestion = 0;
   this.TotalQuestions = 0;
+  this.CurrentQuestionID = 0;
   this.CurrentCategory = 1;
   this.CurrentOffset = -1;
   this.CategoryName = '';
@@ -40,7 +41,7 @@ Quiz.prototype.Socket = function Socket() {
     });
 
     socket.on('send answer', function ReceiveAnswer(answer) {
-      quiz.Teams[socket.id].AddAnswer(quiz.CurrentQuestion, answer);
+      quiz.Teams[socket.id].AddAnswer(quiz.CurrentQuestionID, answer);
 
       if (quiz.CheckAllHaveAnswered()) {
         quiz.NextQuestion();
@@ -132,18 +133,19 @@ Quiz.prototype.NextQuestion = function NextQuestion() {
 Quiz.prototype.GetNextQuestion = function GetNextQuestion(callback) {
   this.CurrentOffset++;
   var quiz = this;
-  this.Database.Query('SELECT questions.question, questions.countdown, questions.answers, categories.category FROM questions INNER JOIN categories ON questions.category=categories.id WHERE questions.category=' + this.CurrentCategory + ' LIMIT ' + this.CurrentOffset + ',1', function (results) {
+  this.Database.Query('SELECT questions.id, questions.question, questions.countdown, questions.answers, categories.category FROM questions INNER JOIN categories ON questions.category=categories.id WHERE questions.category=' + this.CurrentCategory + ' LIMIT ' + this.CurrentOffset + ',1', function (results) {
     if (results.length === 0) {
       quiz.CurrentCategory++;
       quiz.CurrentOffset = -1;
       if (quiz.CurrentCategory === quiz.TotalCategories + 1) {
-
+        quiz.EndQuiz();
       } else {
         quiz.GetNextQuestion(callback);
       }
     } else {
       quiz.CurrentCountdown = results[0].countdown;
       quiz.TotalCountdown = results[0].countdown;
+      quiz.CurrentQuestionID = results[0].id;
       quiz.CurrentQuestion++;
       callback(results);
     }
@@ -200,6 +202,86 @@ Quiz.prototype.Countdown = function Countdown() {
     }
 
   }
+};
+
+Quiz.prototype.EndQuiz = function EndQuiz() {
+  var quiz = this;
+  this.Database.Query('SELECT id, question, correctAnswer FROM questions;', function (results) {
+
+    var presenterData = new Array();
+    var teamsData = {};
+
+    for (var result in results) {
+      var result = results[result];
+      var question = {};
+      question.question = result.question;
+      question.correctAnswer = result.correctAnswer;
+
+      var teamAnswers = new Array();
+
+      for (var teamID in quiz.Teams) {
+
+        if (quiz.Teams.hasOwnProperty(teamID)) {
+          var team = quiz.Teams[teamID];
+
+          if (team == undefined) {
+            continue;
+          }
+
+          var teamQuestion = {
+            question      : question.question,
+            correctAnswer : question.correctAnswer,
+            team          : {
+              Name   : team.Name,
+              Answer : team.Answers[result.id]
+            }
+          };
+
+          var teamQuestions = teamsData[team.Socket.id];
+
+          if (teamQuestions === undefined) {
+            teamQuestions = new Array();
+          }
+
+          teamQuestions.push(teamQuestion);
+
+          teamsData[team.Socket.id] = teamQuestions;
+
+          teamAnswers.push({
+            Name   : team.Name,
+            Answer : team.Answers[result.id]
+          });
+        }
+      }
+
+      question.teams = teamAnswers;
+      presenterData.push(question);
+    }
+
+    var presenterResults = quiz.RenderJade('presenter-results.jade', {
+      questions: presenterData
+    });
+
+    for (var teamID in quiz.Teams) {
+
+      if (quiz.Teams.hasOwnProperty(teamID)) {
+        var team = quiz.Teams[teamID];
+
+        if (team == undefined) {
+          continue;
+        }
+
+        var teamResults = quiz.RenderJade('client-results.jade', {
+          questions: teamsData[team.Socket.id]
+        });
+
+        team.Socket.emit('body change', teamResults);
+
+      }
+    }
+
+    quiz.SocketIO.to('presenters').emit('body change', presenterResults);
+  });
 };
 
 Quiz.prototype.RenderJade = function RenderJade(path, data) {

@@ -1,53 +1,29 @@
-doctype html
-html
-  head
-    title #{title} - Quiz 2014
-    link(rel='stylesheet', href='/css/styles.css')
-    meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+header.header-presenter
+  .row
+    .category
+      h2 Results
 
-  body
-    header.header-presenter
-      .row
-        .category
-          h2 Results
+each question, index in questions
 
-    .col-xs-12
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 Question #1
-            .pull-right this is an example question?
-          .results-answer.col-xs-12 Answer
-            .pull-right this is an example answer
+  .col-xs-12
+    .result
+      .thumbnail.col-xs-12
+        .results-question.col-xs-12 Question ##{index+1}
+          .pull-right #{question.question}
+        .results-answer.col-xs-12 Answer
+          .pull-right #{question.correctAnswer}
+
+        each team in question.teams
+
           .team-answer.col-xs-12
-            .correct Team 1:
-            .pull-left
-              i.fa.fa-check.fa-lg.correct
-            .pull-left This is team ones answer
-          .team-answer.col-xs-12
-            .incorrect Team 2:
-            .pull-left
-              i.fa.fa-times.fa-lg.incorrect
-            .pull-left This is team twos answer
-
-    .col-xs-12
-      .result
-        .thumbnail.pull-left
-          .results-question.col-xs-12 Question #1
-            .pull-right this is an example question?
-          .results-answer.col-xs-12 Answer
-            .pull-right this is an example answer
-          .team-answer.col-xs-12
-            .correct Team 1:
-            .pull-left
-              i.fa.fa-check.fa-lg.correct
-            .pull-left This is team ones answer
-          .team-answer.col-xs-12
-            .incorrect Team 2:
-            .pull-left
-              i.fa.fa-times.fa-lg.incorrect
-            .pull-left This is team twos answer
-
-
-    script(src='/socket.io/socket.io.js')
-    script(type='application/javascript' src='/js/quiz-2014.js')
+            if (team.Answer == question.correctAnswer)
+              .correct #{team.Name}:
+              .pull-left
+                i.fa.fa-check.fa-lg.correct
+              .pull-left #{team.Answer}
+            else
+              .incorrect #{team.Name}:
+              .pull-left
+                i.fa.fa-times.fa-lg.incorrect
+              .pull-left #{team.Answer}
 
