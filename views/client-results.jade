@@ -1,11 +1,11 @@
-header.header-presenter
+header
   .row
     .category
-      h2 Results
+      h2 Your Results
 
 each question, index in questions
   .col-xs-12
-    .result
+    .result.team-result
       .thumbnail.col-xs-12
         .results-question.col-xs-12 Question ##{index+1}
           .pull-right #{question.question}
