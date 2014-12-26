@@ -211,6 +211,7 @@ Quiz.prototype.EndQuiz = function EndQuiz() {
   this.Database.Query('SELECT id, question, correctAnswer FROM questions;', function (results) {
 
     var presenterData = new Array();
+    var totalTeamCorrectAnswers = {};
     var teamsData = {};
 
     for (var result in results) {
@@ -239,7 +240,11 @@ Quiz.prototype.EndQuiz = function EndQuiz() {
             }
           };
 
-          var teamQuestions = teamsData[team.Socket.id];
+          if (teamsData[team.Socket.id] === undefined) {
+            teamsData[team.Socket.id] = { totalCorrect: 0 };
+          }
+
+          var teamQuestions = teamsData[team.Socket.id].teamQuestions;
 
           if (teamQuestions === undefined) {
             teamQuestions = new Array();
@@ -247,7 +252,20 @@ Quiz.prototype.EndQuiz = function EndQuiz() {
 
           teamQuestions.push(teamQuestion);
 
-          teamsData[team.Socket.id] = teamQuestions;
+          teamsData[team.Socket.id].teamQuestions = teamQuestions;
+
+          if (teamQuestion.correctAnswer == teamQuestion.team.Answer) {
+            teamsData[team.Socket.id].totalCorrect += 1;
+
+            if (totalTeamCorrectAnswers[team.Socket.id] === undefined) {
+              totalTeamCorrectAnswers[team.Socket.id] = {
+                correctAnswers : 0,
+                name           : team.Name
+              };
+            }
+
+            totalTeamCorrectAnswers[team.Socket.id].correctAnswers += 1;
+          }
 
           teamAnswers.push({
             Name   : team.Name,
@@ -260,8 +278,30 @@ Quiz.prototype.EndQuiz = function EndQuiz() {
       presenterData.push(question);
     }
 
+    totalTeamCorrectAnswersArray = new Array();
+
+    for (teamID in totalTeamCorrectAnswers) {
+      var team = totalTeamCorrectAnswers[teamID];
+
+      totalTeamCorrectAnswersArray.push(team);
+    }
+
+    function sortTeamsScore(a,b) {
+      if (a.correctAnswers < b.correctAnswers)
+        return 1;
+      if (a.correctAnswers > b.correctAnswerss)
+        return -1;
+      return 0;
+    }
+
+    totalTeamCorrectAnswersArray.sort(sortTeamsScore);
+
+    console.log(totalTeamCorrectAnswersArray);
+
     var presenterResults = quiz.RenderJade('presenter-results.jade', {
-      questions: presenterData
+      questions      : presenterData,
+      leaderboard    : totalTeamCorrectAnswersArray,
+      totalQuestions : quiz.TotalQuestions
     });
 
     for (var teamID in quiz.Teams) {
@@ -274,7 +314,9 @@ Quiz.prototype.EndQuiz = function EndQuiz() {
         }
 
         var teamResults = quiz.RenderJade('client-results.jade', {
-          questions: teamsData[team.Socket.id]
+          questions      : teamsData[team.Socket.id].teamQuestions,
+          totalCorrect   : teamsData[team.Socket.id].totalCorrect,
+          totalQuestions : quiz.TotalQuestions
         });
 
         team.Socket.emit('body change', teamResults);

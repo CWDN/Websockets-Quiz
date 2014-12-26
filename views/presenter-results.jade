@@ -27,3 +27,11 @@ each question, index in questions
                 i.fa.fa-times.fa-lg.incorrect
               .pull-left #{team.Answer}
 
+.leaderboard.col-xs-12
+  h1 Leaderboard
+  .teams
+    ul.leaderboard-rows
+      each team, index in leaderboard
+        li
+          span ##{index + 1}: #{team.name}
+          span.pull-right #{team.correctAnswers} out of #{totalQuestions}
