@@ -1,4 +1,8 @@
 $(function () {
+
+  var ua = navigator.userAgent,
+      clickEvent = (ua.match(/iPad/i)) ? "touchstart" : "click";
+
   $('[data-toggle="tooltip"]').tooltip();
 
   var socket = io();
@@ -42,9 +46,15 @@ $(function () {
 
   socket.on('request answer', sendAnswer);
 
-  $('body').on('click', '#confirm-answer', function () {
+  $('body').on(clickEvent, '#confirm-answer', function () {
     sendAnswer();
   });
+
+  if (clickEvent == 'touchstart') {
+    $('body').on(clickEvent, '.answer', function () {
+      $(this).click();
+    });
+  }
 
   function sendAnswer() {
     $('.answer').attr('disabled', 'disabled');
