@@ -54,17 +54,20 @@ Lobby.prototype.Socket = function Socket(socket) {
     console.log('a presenter connected');
     socket.join('presenters');
   }
-  io.sockets.emit('teams update', renderTeams(teams));
+  if (!quiz.Started)
+    io.sockets.emit('teams update', renderTeams(teams));
 
   socket.on('disconnect', function Disconnect() {
     teams[socket.id] = undefined;
-    socket.broadcast.emit('teams update', renderTeams(teams));
+    if (!quiz.Started)
+      socket.broadcast.emit('teams update', renderTeams(teams));
     console.log('a user disconnected');
   });
 
   socket.on('team name update', function TeamNameUpdate(name) {
     teams[socket.id].Name = name;
-    io.sockets.emit('teams update', renderTeams(teams));
+    if (!quiz.Started)
+      io.sockets.emit('teams update', renderTeams(teams));
   });
 
     //    fs.readFile('./images/lil-llama.jpg', function (err, buf) {

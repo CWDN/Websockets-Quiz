@@ -11,6 +11,7 @@ var Quiz = function (io) {
   this.CurrentCountdown = 60;
   this.TotalCountdown = 60;
   this.CountdownID = 0;
+  this.Started = false;
 
   this.Database = require('./Database').Database();
   var quiz = this;
@@ -21,10 +22,6 @@ var Quiz = function (io) {
   this.Database.Query('SELECT count(id) as Total FROM categories', function(data) {
     quiz.TotalCategories = data[0].Total;
   });
-
-
-
-
 };
 
 Quiz.prototype.Socket = function Socket() {
@@ -37,6 +34,7 @@ Quiz.prototype.Socket = function Socket() {
 
     socket.on('start quiz', function StartQuiz() {
       quiz.NextQuestion();
+      quiz.Started = true;
 
     });
 
